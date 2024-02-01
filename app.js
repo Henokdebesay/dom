@@ -100,6 +100,7 @@ let catalogArray = [
     subMenuEl.innerHTML = "";
   
     // Check if the clicked link has sublinks
+    
     const linkData = menuLinks.find(link => link.text === clickedLink.textContent.toLowerCase());
     if (linkData && linkData.subLinks) {
       // Populate submenu with sublinks
@@ -108,11 +109,29 @@ let catalogArray = [
         subLink.innerText = sublink.text;
         subLink.href = sublink.href;
         subMenuEl.appendChild(subLink);
+        if( subLink === topMenuEl.querySelectorAll("a")){
+          console.log("hello")
+          mainEl.innerHTML = `<h1>${e.target.textContent.toUpperCase()}</h1>`;
+        }
+
       });
       // Toggle submenu visibility
       subMenuEl.style.top = subMenuEl.style.top === "100%" ? "0" : "100%";
     } else {
       // Hide the submenu for links without sublinks
-      subMenuEl.style.top = "0";
+      subMenuEl.style.top === "0";
     }
+
+    
+    
   });
+
+  subMenuEl.addEventListener("click", e => {
+    e.preventDefault();
+    const clickedSubLink = e.target.closest("a");
+
+    if (!clickedSubLink) return;
+
+    // Display heading in mainEl
+    mainEl.innerHTML = `<h1>${clickedSubLink.textContent.toUpperCase()}</h1>`;
+});
